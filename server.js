@@ -1,5 +1,6 @@
-//require express
+//dependencies
 var express = require("express");
+//var fs = require("fs");
 //initialize express
 var app = express();
 //define port
@@ -15,6 +16,8 @@ var reservations = [];
 var waiting = [];
 
 //routes
+
+//
 
 
 //starts server listening
