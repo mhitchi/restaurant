@@ -83,6 +83,7 @@
 </html>
 
 <!-- BELOW CODE IS CRITICAL. IT HANDLES HOW FORM DATA IS SENT TO OUR SERVER -->
+<script src="server.js" type="text/javascript"></script>
 <script type="text/javascript">
   // In this code below we create the Front-end JavaScript which "POSTS" our form data to our express server.
   // In essence, when the user hits submit, jQuery grabs all of the fields then sends a post request to our api
@@ -90,10 +91,39 @@
   // In this case the associated code "saves" the data to the table-data.js file or waitinglist-data.js file
 
   //get DOM elements
-  const reserveName = $("#reserve-name");
-  const reserveEmail = $("#reserve-email");
-  const reservePhone = $("#reserve-phone");
-  const reserveId = $("#reserve-unique-id");
+  const reserveName = $("#reserve-name").val();
+  const reserveEmail = $("#reserve-email").val();
+  const reservePhone = $("#reserve-phone").val();
+  const reserveId = $("#reserve-unique-id").val();
+  const submitBtn = $(".submit");
+
+  //post reservation
+  function postRes(reserveName, reserveEmail, reservePhone, reserveId) {
+    $.ajax({
+      type: "POST",
+      url: "./tables.html",
+      data: 
+        {
+          name: reserveName,
+          email: reserveEmail,
+          phone: reservePhone,
+          id: reserveId,
+        },
+      success: function(data) {
+        console.log("postRes() was a success!");
+      },
+      error: function(jqXHR, textStatus, err) {
+        console.log(`Text status: ${textStatus}`);
+        console.log(`Error with postRes(): ${err}`);
+      }
+    });//ajax
+  };//postres
+
+  //onclick for submit button calls postRes()
+  submitBtn.on("click", function() {
+    postRes(reserveName, reserveEmail, reservePhone, reserveId);
+  });//submit onclick
+
 
   //get name, phone number, email, id from form
   //pass to tables.html
